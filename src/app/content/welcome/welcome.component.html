@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Welcome to <b>Decidely!</b></h1>
+            <h3>The site that helps you with the <em>really though decisions...</em></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <button class="btn btn-success" type="button" (click)="onNewDecision()">New Decision</button>
+        </div>
+        <div class="col-sm-8">
+            <form #getDecisionForm="ngForm" (ngSubmit)="onSubmit(getDecisionForm)">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary" type="submit" [disabled]="!getDecisionForm.valid">Get Existing Decision</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="decisionId">Decision ID:</label>
+                        <br>
+                        <input type="number" id="decisionId" name="decisionId" ngModel required pattern="\d{8,}">
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+</div>

@@ -1,18 +1,11 @@
-export interface Option {
-    id: number;
-    text: string;
+export class Option {
+    constructor(public id: number, public text: string) {}
 }
 
-export interface Factor {
-    id: number;
-    text: string;
-    weight: number;
-    score: number;
+export class Factor {
+    constructor(public id: number, public text: string, public weight: number) {}
 }
 
-export interface Decision {
-    id: number;
-    text: string;
-    options: Option[];
-    factors: Factor[];
+export class Decision {
+    constructor(public id: number, public text: string, public options: Option[], public factors: Factor[]) {}
 }

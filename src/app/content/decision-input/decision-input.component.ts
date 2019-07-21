@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { DataService } from '../services/data.service';
+import { Decision } from '../entities.model';
+import { ServerService } from '../services/server.service';
 
 @Component({
   selector: 'app-decision-input',
@@ -7,9 +13,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DecisionInputComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serverService: ServerService, private dataService: DataService, private router: Router) {}
 
-  ngOnInit() {
+  decisionText = '';
+
+  onSubmit(form: NgForm): void {
+    if (this.dataService.decision) {
+      this.dataService.decision.text = form.value.decisionText;
+    } else {
+      this.dataService.decision = new Decision(this.serverService.getNewDecisionId(), form.value.decisionText, [], []);
+    }
+    this.router.navigate(['/options-n-factors']);
+  }
+
+  ngOnInit(): void {
+    if (this.dataService.decision) {
+      this.decisionText = this.dataService.decision.text;
+    }
   }
 
 }

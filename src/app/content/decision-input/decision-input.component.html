@@ -1,1 +1,19 @@
-<p>decision-input works!</p>
+<div class="row">
+    <div class="col-12">
+        <form #decisionForm="ngForm" (ngSubmit)="onSubmit(decisionForm)">
+            <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="decisionText">Decision</label>
+                    <input type="text" id="decisionText" class="form-control" [value]="decisionText" name="decisionText" ngModel required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-success" [disabled]="!decisionForm.valid">Continue</button>
+                  </div>
+                </div>
+              </div>
+        </form>
+    </div>
+</div>

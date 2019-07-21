@@ -1,1 +1,57 @@
-<p>options-factors-input works!</p>
+<div class="row">
+  <div class="col-12">
+    <h3>
+      <u>Decision</u>: <em>{{ dataService.decision?.text }}</em>
+    </h3>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Options</h5>
+                    <button class="btn btn-primary" type="button" (click)="onAddOption()">Add Option</button>
+                </div>
+            </div>
+            <div formArrayName="options">
+                <div class="row" *ngFor="let option of getElements('options'); let i = index" style="margin-top: 10px;">
+                    <div class="col-10">
+                        <input type="text" class="form-control" [formControlName]="i" />
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger" (click)="onDeleteElement('options', i)">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Factors</h5>
+                    <button class="btn btn-primary" type="button" (click)="onAddFactor()">Add Factor</button>
+                </div>
+            </div>
+            <div formArrayName="factors">
+                <div class="row" *ngFor="let factor of getElements('factors'); let j = index" style="margin-top: 10px;" [formGroupName]="j">
+                    <div class="col-8">
+                        <input type="text" class="form-control" formControlName="text" />
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control" formControlName="weight" />
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger" (click)="onDeleteElement('factors', j)">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-success" type="submit" [disabled]="!form.valid">Submit</button>
+        </div>
+    </div>
+</form>

@@ -13,12 +13,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'decision', component: DecisionInputComponent, children: [
-    { path: 'options', component: OptionsFactorsInputComponent },
-    { path: 'factors', component: OptionsFactorsInputComponent },
-    { path: 'matrix', component: OptionsFactorsMatrixComponent },
-    { path: 'recommendations', component: RecommendationsComponent }
-  ] }
+  { path: 'decision', component: DecisionInputComponent },
+  { path: 'options-n-factors', component: OptionsFactorsInputComponent },
+  { path: 'matrix', component: OptionsFactorsMatrixComponent },
+  { path: 'recommendations', component: RecommendationsComponent }
 ];
 
 @NgModule({

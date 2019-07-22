@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
@@ -17,23 +17,21 @@ export class DecisionInputComponent implements OnInit {
     private serverService: ServerService,
     private dataService: DataService,
     private router: Router,
-    private renderer: Renderer2) {}
+    private fb: FormBuilder) {}
 
-  @ViewChild('decisionTextInput', {static: true}) decisionTextInput: ElementRef;
+  decisionForm: FormGroup;
 
-  onSubmit(form: NgForm): void {
+  ngOnInit(): void {
+    const initialText = this.dataService.decision ? this.dataService.decision.text : '';
+    this.decisionForm = this.fb.group({decisionText: this.fb.control(initialText, Validators.required)});
+  }
+
+  onSubmit(): void {
     if (this.dataService.decision) {
-      this.dataService.decision.text = form.value.decisionText;
+      this.dataService.decision.text = this.decisionForm.get('decisionText').value;
     } else {
-      this.dataService.decision = new Decision(this.serverService.getNewDecisionId(), form.value.decisionText, [], []);
+      this.dataService.decision = new Decision(this.serverService.getNewDecisionId(), this.decisionForm.get('text').value, [], []);
     }
     this.router.navigate(['/options-n-factors']);
   }
-
-  ngOnInit(): void {
-    if (this.dataService.decision) {
-      this.renderer.setValue(this.decisionTextInput.nativeElement, this.dataService.decision.text);
-    }
-  }
-
 }

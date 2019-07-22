@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-12">
-        <form #decisionForm="ngForm" (ngSubmit)="onSubmit(decisionForm)">
+        <form [formGroup]="decisionForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-12">
                   <div class="form-group">
                     <label for="decisionText">Decision</label>
-                    <input #decisionTextInput type="text" id="decisionText" class="form-control" name="decisionText" ngModel required>
+                    <input #decisionTextInput type="text" id="decisionText" class="form-control" formControlName="decisionText">
                   </div>
                 </div>
                 <div class="row">

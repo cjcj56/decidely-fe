@@ -7,6 +7,7 @@ import { DecisionInputComponent } from './content/decision-input/decision-input.
 import { OptionsFactorsInputComponent } from './content/options-factors-input/options-factors-input.component';
 import { OptionsFactorsMatrixComponent } from './content/options-factors-matrix/options-factors-matrix.component';
 import { RecommendationsComponent } from './content/recommendations/recommendations.component';
+import { DataGuard } from './guards/data.guard';
 
 
 const routes: Routes = [
@@ -14,9 +15,9 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'decision', component: DecisionInputComponent },
-  { path: 'options-n-factors', component: OptionsFactorsInputComponent },
-  { path: 'matrix', component: OptionsFactorsMatrixComponent },
-  { path: 'recommendations', component: RecommendationsComponent }
+  { path: 'options-n-factors', component: OptionsFactorsInputComponent, canActivate: [DataGuard] },
+  { path: 'matrix', component: OptionsFactorsMatrixComponent, canActivate: [DataGuard] },
+  { path: 'recommendations', component: RecommendationsComponent, canActivate: [DataGuard] }
 ];
 
 @NgModule({

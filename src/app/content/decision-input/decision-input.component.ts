@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,9 +13,13 @@ import { ServerService } from '../services/server.service';
 })
 export class DecisionInputComponent implements OnInit {
 
-  constructor(private serverService: ServerService, private dataService: DataService, private router: Router) {}
+  constructor(
+    private serverService: ServerService,
+    private dataService: DataService,
+    private router: Router,
+    private renderer: Renderer2) {}
 
-  decisionText = '';
+  @ViewChild('decisionTextInput', {static: true}) decisionTextInput: ElementRef;
 
   onSubmit(form: NgForm): void {
     if (this.dataService.decision) {
@@ -28,7 +32,7 @@ export class DecisionInputComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.dataService.decision) {
-      this.decisionText = this.dataService.decision.text;
+      this.renderer.setValue(this.decisionTextInput.nativeElement, this.dataService.decision.text);
     }
   }
 

@@ -1,9 +1,26 @@
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
-            <table class="table table-hohver">
-                <tr *ngFor="let factor of dataService.factors"
-            </table>
+                <table class="table table-hohver">
+                    <thead>
+                        <tr>
+                            <td>Factors</td>
+                            <td *ngFor="let option of dataService.options">{{ option.text }}</td>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let factor of dataService.factors; let i = index" >
+                        <td>{{ factor.text }} ({{ factor.weight }})</td>
+                        <td *ngFor="let option of dataService.options; let j = index">
+                            <input type="number" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-success" >Submit</button>
+                    </div>
+                </div>
+
         </div>
     </div>
 </div>

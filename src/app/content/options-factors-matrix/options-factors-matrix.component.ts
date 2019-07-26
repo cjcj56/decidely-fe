@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
+import { ScoreCollection, Score } from '../entities.model';
 
 @Component({
   selector: 'app-options-factors-matrix',
@@ -11,7 +12,7 @@ import { DataService } from '../services/data.service';
 })
 export class OptionsFactorsMatrixComponent implements OnInit {
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router) { }
+  constructor(private data: DataService, private fb: FormBuilder, private router: Router) { }
 
   scoreForm: FormGroup;
 
@@ -22,30 +23,29 @@ export class OptionsFactorsMatrixComponent implements OnInit {
   private initForm() {
     this.scoreForm = this.fb.group({scores: this.fb.array([])});
     const baseArray = this.scoreForm.get('scores') as FormArray;
-    for (let i = 0; i < this.dataService.factors.length; ++i) {
-      for (let j = 0; j < this.dataService.options.length; ++j) {
-        baseArray.push(this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(10)]));
-      }
+    for (let i = 0; i < this.data.factors.length * this.data.options.length; ++i) {
+      baseArray.push(this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(10)]));
     }
 
-    if (this.dataService.scores) {
-      for (let i = 0; i < this.dataService.factors.length; ++i) {
-        for (let j = 0; j < this.dataService.options.length; ++j) {
-          baseArray.at(this.dataService.options.length * i + j).setValue(this.dataService.scores[i][j]);
-        }
+    if (this.data.scores.length > 0) {
+      for (const score of this.data.scores.getAllScores()) {
+        const factorIdx = this.data.factors.findIndex(factor => factor.id === score.factor.id);
+        const optionIdx = this.data.options.findIndex(option => option.id === score.option.id);
+        baseArray.at(this.data.options.length * factorIdx + optionIdx).setValue(score.score);
       }
     }
   }
 
   onSubmit() {
-    this.dataService.scores = [];
+    this.data.scores = new ScoreCollection();
     const baseArray = this.scoreForm.get('scores') as FormArray;
-    for (let i = 0; i < this.dataService.factors.length; ++i) {
-      for (let j = 0; j < this.dataService.options.length; ++j) {
-        this.dataService.scores[i][j] = baseArray.at(this.dataService.options.length * i + j).value;
+    for (let i = 0; i < this.data.factors.length; ++i) {
+      for (let j = 0; j < this.data.options.length; ++j) {
+        const scoreValue = baseArray.at(this.data.options.length * i + j).value;
+        this.data.scores.addScore(new Score(this.data.options[j], this.data.factors[i], scoreValue));
       }
     }
-    
+
     this.router.navigate(['/recommendations']);
   }
 

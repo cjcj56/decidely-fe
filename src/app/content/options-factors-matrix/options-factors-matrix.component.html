@@ -6,14 +6,14 @@
                     <thead>
                         <tr>
                             <th>Factors (weight) | Options</th>
-                            <th *ngFor="let option of dataService.options">{{ option.text }}</th>
+                            <th *ngFor="let option of data.options">{{ option.text }}</th>
                         </tr>
                     </thead>
                     <tbody formArrayName="scores">
-                        <tr *ngFor="let factor of dataService.factors; let i = index">
+                        <tr *ngFor="let factor of data.factors; let i = index">
                             <th>{{ factor.text }} ({{ factor.weight }})</th>
-                            <td *ngFor="let option of dataService.options; let j = index">
-                                <input type="number" class="form-control" [formControlName]="dataService.options.length*i+j" />
+                            <td *ngFor="let option of data.options; let j = index">
+                                <input type="number" class="form-control" [formControlName]="data.options.length*i+j" />
                             </td>
                         </tr>
                     </tbody>

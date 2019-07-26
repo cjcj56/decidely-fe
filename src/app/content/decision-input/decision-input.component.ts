@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
-import { Decision } from '../entities.model';
+import { Decision, ScoreCollection } from '../entities.model';
 import { ServerService } from '../services/server.service';
 
 @Component({
@@ -30,7 +30,8 @@ export class DecisionInputComponent implements OnInit {
     if (this.dataService.decision) {
       this.dataService.decision.text = this.decisionForm.get('decisionText').value;
     } else {
-      this.dataService.decision = new Decision(this.serverService.getNewDecisionId(), this.decisionForm.get('text').value, [], []);
+      this.dataService.decision =
+      new Decision(this.serverService.getNewDecisionId(), this.decisionForm.get('text').value, [], [], new ScoreCollection());
     }
     this.router.navigate(['/options-n-factors']);
   }

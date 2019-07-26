@@ -27,7 +27,7 @@ export class OptionsFactorsInputComponent implements OnInit {
   onAddFactor(): void {
     (this.form.get('factors') as FormArray).push(this.fb.group({
       text: ['', Validators.required],
-      weight: ['', [Validators.required, Validators.pattern('^(?:[1-9]|10)$')]]
+      weight: ['', [Validators.required, Validators.min(1), Validators.max(10)]]
     }));
   }
 
@@ -37,16 +37,16 @@ export class OptionsFactorsInputComponent implements OnInit {
       factors: this.fb.array([], this.minArrayLengthValidator(1))
     });
 
-    if (this.dataService.options) {
+    if (this.dataService.options.length > 0) {
       this.dataService.options.forEach(option => {
         (this.form.get('options') as FormArray).push(this.fb.control(option.text, Validators.required));
       });
     }
-    if (this.dataService.factors) {
+    if (this.dataService.factors.length > 0) {
       this.dataService.factors.forEach(factor => {
         (this.form.get('factors') as FormArray).push(this.fb.group({
           text: this.fb.control(factor.text, Validators.required),
-          weight: this.fb.control(factor.weight, [Validators.required, Validators.pattern('^(?:[1-9]|10)$')])
+          weight: this.fb.control(factor.weight, [Validators.required, Validators.min(1), Validators.max(10)])
         }));
       });
     }
@@ -63,7 +63,7 @@ export class OptionsFactorsInputComponent implements OnInit {
   onSubmit(): void {
     this.dataService.options = [];
     (this.form.get('options') as FormArray).controls.forEach((option, i) => {
-      this.dataService.options.push(new Option(i, option.value));
+      this.dataService.options.push(new Option(i, option.value, -1));
     });
 
     this.dataService.factors = [];

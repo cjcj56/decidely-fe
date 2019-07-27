@@ -27,7 +27,7 @@ export class OptionsFactorsMatrixComponent implements OnInit {
       baseArray.push(this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(10)]));
     }
 
-    if (this.data.scores.length > 0) {
+    if (this.data.scores && this.data.scores.length > 0) {
       for (const score of this.data.scores.getAllScores()) {
         const factorIdx = this.data.factors.findIndex(factor => factor.id === score.factor.id);
         const optionIdx = this.data.options.findIndex(option => option.id === score.option.id);

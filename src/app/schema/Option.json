@@ -1,0 +1,13 @@
+{
+    "$schema": "http://www.decidely.com/schemas",
+    "$id": "http://www.decidely.com/schemas/Option.json",
+    "title": "Option",
+    "type": "object",
+    "properties": {
+        "id": { "type": "integer" },
+        "text": { "type": "string" },
+        "priority": { "type": "integer" }
+    },
+    "required": ["id", "text", "priority"],
+    "additionalProperties": false
+}

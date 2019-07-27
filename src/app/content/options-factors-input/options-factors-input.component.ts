@@ -37,12 +37,12 @@ export class OptionsFactorsInputComponent implements OnInit {
       factors: this.fb.array([], this.minArrayLengthValidator(1))
     });
 
-    if (this.dataService.options.length > 0) {
+    if (this.dataService.options && this.dataService.options.length > 0) {
       this.dataService.options.forEach(option => {
         (this.form.get('options') as FormArray).push(this.fb.control(option.text, Validators.required));
       });
     }
-    if (this.dataService.factors.length > 0) {
+    if (this.dataService.factors && this.dataService.factors.length > 0) {
       this.dataService.factors.forEach(factor => {
         (this.form.get('factors') as FormArray).push(this.fb.group({
           text: this.fb.control(factor.text, Validators.required),

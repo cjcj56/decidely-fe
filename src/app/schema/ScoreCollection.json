@@ -1,0 +1,14 @@
+{
+    "$schema": "http://www.decidely.com/schemas",
+    "$id": "http://www.decidely.com/schemas/ScoreCollection.json",
+    "title": "ScoreCollection",
+    "type": "object",
+    "properties": {
+        "scores": {
+            "type": "object",
+            "propertyNames": { "pattern": "^[0-9]+:[0-9]+$" } 
+        }
+    },
+    "required": ["scores"],
+    "additionalProperties": false
+}

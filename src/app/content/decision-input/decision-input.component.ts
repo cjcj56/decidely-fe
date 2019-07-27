@@ -22,8 +22,7 @@ export class DecisionInputComponent implements OnInit {
   decisionForm: FormGroup;
 
   ngOnInit(): void {
-    const initialText = this.dataService.decision ? this.dataService.decision.text : '';
-    this.decisionForm = this.fb.group({decisionText: this.fb.control(initialText, Validators.required)});
+    this.decisionForm = this.fb.group({decisionText: this.fb.control(null, Validators.required)});
   }
 
   onSubmit(): void {
@@ -31,7 +30,7 @@ export class DecisionInputComponent implements OnInit {
       this.dataService.decision.text = this.decisionForm.get('decisionText').value;
     } else {
       this.dataService.decision =
-      new Decision(this.serverService.getNewDecisionId(), this.decisionForm.get('text').value, [], [], new ScoreCollection());
+      new Decision(this.serverService.getNewDecisionId(), this.decisionForm.get('decisionText').value, [], [], new ScoreCollection());
     }
     this.router.navigate(['/options-n-factors']);
   }

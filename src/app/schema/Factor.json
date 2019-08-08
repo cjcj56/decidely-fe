@@ -6,8 +6,9 @@
     "properties": {
         "id": { "type": "integer" },
         "text": { "type": "string" },
-        "weight": { "type": "integer" }
+        "weight": { "type": "integer" },
+        "decision": { "type": { "$ref": "Decision.json#/" } }
     },
-    "required": ["id", "text", "weight"],
+    "required": ["id", "text", "weight", "decision"],
     "additionalProperties": false
 }

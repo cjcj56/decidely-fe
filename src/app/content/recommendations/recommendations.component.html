@@ -1,1 +1,23 @@
-<p>recommendations works!</p>
+<div class="row">
+    <div class="col-12 col-md-6 col-md-offset-3">
+        <h2>Recommended Options for You:</h2>
+    </div>
+</div>      
+
+<div class="row">
+  <div class="col-12 col-md-6 col-md-offset-3">
+    <p *ngIf="results.length < 1 && !isFetching">No recommendations available!</p>
+    <ul class="list-group" *ngIf="results.length >= 1 && !isFetching">
+      <li class="list-group-item" *ngFor="let option of results; let i = index">
+        <h4>Option #{{ i + 1 }}</h4>
+        <p>{{ option.text }}</p>
+      </li>
+    </ul>
+    <p *ngIf="isFetching && !error">Loading...</p>
+    <div class="alert alert-danger" *ngIf="error">
+      <h1>An Error Occurred!</h1>
+      <p>{{ error }}</p>
+      <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+    </div>
+  </div>
+</div>

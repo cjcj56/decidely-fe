@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../content/services/data.service';
 
 @Component({
@@ -6,15 +6,12 @@ import { DataService } from '../content/services/data.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  constructor(private dataService: DataService) { }
-
-  ngOnInit() {
-  }
+  constructor(private data: DataService) { }
 
   onGenTestData() {
-    this.dataService.fillTestData();
+    this.data.fillTestData();
   }
 
 }

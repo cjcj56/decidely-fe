@@ -95,4 +95,5 @@ export class ServerService {
     getResults(decisionId: number): Observable<object> {
         return this.http.get(this.server + this.urls.getResults.replace(this.decisionPh, '' + decisionId));
     }
+
 }

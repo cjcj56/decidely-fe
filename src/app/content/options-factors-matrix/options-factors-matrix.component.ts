@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
-import { ScoreCollection, Score } from '../entities.model';
+import { Score, Option } from '../entities.model';
 import { ServerService } from '../services/server.service';
 
 @Component({
@@ -63,6 +63,9 @@ export class OptionsFactorsMatrixComponent implements OnInit {
       for (let i = 0; i < scoresArray.length; ++i) {
         scoresArray[i].id = scoresIds[i];
       }
+    });
+    this.server.getResults(this.data.decision.id).subscribe(response => {
+      this.data.options = response as Option[];
     });
     this.router.navigate(['/recommendations']);
   }

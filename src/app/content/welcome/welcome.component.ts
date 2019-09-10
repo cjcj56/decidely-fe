@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ServerService } from '../services/server.service';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { DataService } from '../services/data.service';
 import { SimpleDecison, Decision, ScoreCollection } from '../entities.model';
 

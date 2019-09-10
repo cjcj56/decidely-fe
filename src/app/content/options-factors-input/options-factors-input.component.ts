@@ -39,7 +39,7 @@ export class OptionsFactorsInputComponent implements OnInit {
   private initForm(): void {
     this.form = this.fb.group({
       options: this.fb.array([], this.minArrayLengthValidator(2)),
-      factors: this.fb.array([], this.minArrayLengthValidator(1))
+      factors: this.fb.array([], this.minArrayLengthValidator(3))
     });
 
     if (this.data.options && this.data.options.length > 0) {
@@ -83,7 +83,7 @@ export class OptionsFactorsInputComponent implements OnInit {
     } else {
       (this.form.get('options') as FormArray).controls.forEach((optionCtrl, i) => {
         options[i].text = optionCtrl.value;
-        options[i].priority = -1;
+        options[i].normalizedScore = -1;
       });
       this.server.updateOptions(options, decision.id);
     }

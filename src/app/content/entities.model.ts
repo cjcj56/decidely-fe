@@ -1,5 +1,5 @@
 export class Option {
-    constructor(public id: number, public text: string, public priority: number, public decision: Decision) {}
+    constructor(public id: number, public text: string, public normalizedScore: number, public decision: Decision) {}
 }
 
 

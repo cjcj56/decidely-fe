@@ -14,3 +14,12 @@
         </div>
     </div>
 </nav>
+
+<div class="row" *ngIf="data.decision">
+    <div class="col-12">
+      <h3>
+        <u>Decision</u>: <em>{{ data.decision?.text }}</em>
+      </h3>
+    </div>
+  </div>
+  

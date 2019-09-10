@@ -11,6 +11,7 @@
       <li class="list-group-item" *ngFor="let option of results; let i = index">
         <h4>Option #{{ i + 1 }}</h4>
         <p>{{ option.text }}</p>
+        <p>Normalized Score: {{ option.normalizedScore | number : '1.2-2' }}</p>
       </li>
     </ul>
     <p *ngIf="isFetching && !error">Loading...</p>
